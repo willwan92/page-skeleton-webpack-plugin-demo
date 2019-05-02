@@ -10,6 +10,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
+const { SkeletonPlugin } = require('page-skeleton-webpack-plugin')
+
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
@@ -64,7 +66,13 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         to: config.dev.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+    ]),
+    new SkeletonPlugin({
+      pathname: path.resolve(__dirname, '../shell'), // the path to store shell file
+      staticDir: config.build.assetsRoot, // the same as the `output.path`
+      routes: ['/'], // Which routes you want to generate skeleton screen
+      port: '7890',
+    })
   ]
 })
 

@@ -13,6 +13,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const env = require('../config/prod.env')
 
+const { SkeletonPlugin } = require('page-skeleton-webpack-plugin')
+
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
@@ -65,7 +67,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true,
       minify: {
-        removeComments: true,
+        removeComments: false,
         collapseWhitespace: true,
         removeAttributeQuotes: true
         // more options:
@@ -115,7 +117,14 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+	]),
+	
+    new SkeletonPlugin({
+      pathname: path.resolve(__dirname, '../shell'), // the path to store shell file
+      staticDir: config.build.assetsRoot, // the same as the `output.path`
+      routes: ['/'], // Which routes you want to generate skeleton screen
+      port: '7890',
+    })
   ]
 })
 
