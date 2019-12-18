@@ -123,7 +123,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       pathname: path.resolve(__dirname, '../shell'), // the path to store shell file
       staticDir: config.build.assetsRoot, // the same as the `output.path`
       routes: ['/'], // Which routes you want to generate skeleton screen
-      port: '7890',
+    //   port: '7890',
     })
   ]
 })
